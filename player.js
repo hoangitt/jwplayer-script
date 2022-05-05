@@ -22,8 +22,18 @@ jQuery(function () {
         setTimeout(rememberPosition, 30000);
     });
 
+    jwplayer().on('pause', (e) => {
+        rememberPosition();
+    });
+
     jwplayer().on('seek', (e) => {
         rememberPosition(e.offset);
+    });
+
+    //remove if complete
+    jwplayer().on('complete', () => {
+        console.log('complete');
+        localStorage.removeItem(timeWatchSlug);
     });
 
     const rememberPosition = (timer) => {
